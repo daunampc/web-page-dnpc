@@ -93,13 +93,17 @@ export const Header = () => {
         </div>
       )}
       <div className="flex items-center justify-between container mx-auto py-2.5">
-        <div className="text-white font-potta-none font-normal text-xl">
-          DNPC-HOYOPLAY
-        </div>
-        <div className="flex items-center text-white font-semibold gap-2">
-          <div className="px-3">
-            Home
+        <Link href={'/'}>
+          <div className="text-white font-potta-none font-normal text-xl">
+            DNPC-HOYOPLAY
           </div>
+        </Link>
+        <div className="flex items-center text-white font-semibold gap-2">
+          <Link href={'/'}>
+            <div className="px-3">
+              Home
+            </div>
+          </Link>
           <div className="px-3">
             About-Us
           </div>

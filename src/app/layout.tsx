@@ -1,9 +1,10 @@
 import { Potta_One, Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 
 const geistZenMaruGothic = Zen_Maru_Gothic({
-  weight: ['500'],
+  weight: ['500', "700", '900'],
   subsets: ['latin'],
   variable: '--font-zen-maru-gothic'
 })
@@ -24,8 +25,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} antialiased bg-dark-body dark`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} antialiased `}>
+        <ThemeProvider attribute={'class'} defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

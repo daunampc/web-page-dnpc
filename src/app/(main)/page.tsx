@@ -1,5 +1,5 @@
-import { BlogData } from "@/components/blog/blog-data";
 import { InfoHomePage } from "@/components/info-home-page/info-home-page";
+import { PostData } from "@/components/post/post-data";
 import { SubscribeForm } from "@/components/subscribe/subscribe-form";
 
 export default function Home() {
@@ -11,11 +11,11 @@ export default function Home() {
           <InfoHomePage />
         </div>
       </div>
-      <BlogData />
+      <PostData />
       <div className="bg-dark-header">
         <SubscribeForm />
       </div>
-      <BlogData />
+      <PostData />
     </div>
   );
 }

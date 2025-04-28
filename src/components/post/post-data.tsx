@@ -1,10 +1,10 @@
 'use client'
 
-import { BlogItem } from "./blog-item"
 import ScrollAnimate from "../scroll-animate/scroll-animate"
 import { Divider } from "@heroui/divider"
+import { PostItem } from "./post-item"
 
-export const BlogData = () => {
+export const PostData = () => {
 
   return (
     <div>
@@ -15,12 +15,13 @@ export const BlogData = () => {
         <Divider className="bg-slate-700 mt-2" />
       </ScrollAnimate>
       <div className="grid grid-cols-4 gap-4 mt-3">
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
-        <BlogItem />
+        <PostItem />
+        <PostItem />
+        <PostItem />
+        <PostItem />
+        <PostItem />
+
+        <PostItem />
       </div>
     </div>
 
