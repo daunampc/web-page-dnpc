@@ -182,6 +182,20 @@
     "@react-types/form" "3.7.10"
     "@react-types/shared" "3.28.0"
 
+"@heroui/form@^2.1.16":
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/@heroui/form/-/form-2.1.16.tgz#a9346399559aea8c344e588a932d23c0eb3b1501"
+  integrity sha512-o3N48rs6RQYGFOf/MMP1+Xk5qrEUWJRPieLCLU5dMR0g7YicAzZQyHmOngxOQaUk+kW+2rCbYP0jUiFAatahmA==
+  dependencies:
+    "@heroui/react-utils" "2.1.8"
+    "@heroui/shared-utils" "2.1.7"
+    "@heroui/system" "2.4.13"
+    "@heroui/theme" "2.4.13"
+    "@react-aria/utils" "3.28.1"
+    "@react-stately/form" "3.1.2"
+    "@react-types/form" "3.7.10"
+    "@react-types/shared" "3.28.0"
+
 "@heroui/image@^2.2.10":
   version "2.2.10"
   resolved "https://registry.npmjs.org/@heroui/image/-/image-2.2.10.tgz"

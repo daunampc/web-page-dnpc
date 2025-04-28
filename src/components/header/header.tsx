@@ -2,6 +2,7 @@
 import { Button } from "@heroui/button"
 import { Input } from "@heroui/input"
 import { LogIn, Search, X } from "lucide-react"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 export const Header = () => {
@@ -114,13 +115,15 @@ export const Header = () => {
           <Button onClick={() => setOpenSearch(true)} isIconOnly aria-label="search" className="bg-slate-100">
             <Search />
           </Button>
-          <Button
-            className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg font-semibold"
-            radius="full"
-          >
-            <LogIn />
-            Log-In/Register
-          </Button>
+          <Link href={'/login'}>
+            <Button
+              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg font-semibold"
+              radius="full"
+            >
+              <LogIn />
+              Log-In/Register
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
