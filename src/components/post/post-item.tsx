@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 export const PostItem = () => {
   return (
-    <Link href={'/blog/124666'}>
+    <Link href={'/post/124666'}>
       <Card shadow="sm" className="bg-dark-body">
         {/* 1. Ảnh cover */}
         <CardHeader className="p-0">

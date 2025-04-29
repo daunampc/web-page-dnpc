@@ -15,10 +15,13 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         'dark-body': '#0A0A0A',
-        'dark-header': '#121212'
+        'dark-header': '#121212',
+        'dark-pink-primary': '#5E129B'
       },
       fontFamily: {
-        'potta-none': ['var(--font-potta-one)']
+        'potta-none': ['var(--font-potta-one)'],
+        'roboto': ['var(--font-roboto)'],
+        'noto-color-emoji': ['var(--font-noto-color-emoji)']
       },
       container: {
         center: true,              // canh giữa container

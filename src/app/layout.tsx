@@ -1,4 +1,4 @@
-import { Potta_One, Zen_Maru_Gothic } from "next/font/google";
+import { Potta_One, Zen_Maru_Gothic, Roboto, Noto_Color_Emoji } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 
@@ -13,6 +13,16 @@ const geistPottaOne = Potta_One({
   subsets: ['latin'],
   variable: '--font-potta-one'
 })
+const geistRoboto = Roboto({
+  weight: ['400'],
+  subsets: ['latin'],
+  variable: '--font-roboto'
+})
+const geistNotoColorEmoji = Noto_Color_Emoji({
+  weight: ['400'],
+  subsets: ['emoji'],
+  variable: '--font-noto-color-emoji'
+})
 
 export const metadata = {
   title: 'Next.js',
@@ -26,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} antialiased `}>
+      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} ${geistRoboto.variable} ${geistNotoColorEmoji.variable} antialiased `}>
         <ThemeProvider attribute={'class'} defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
