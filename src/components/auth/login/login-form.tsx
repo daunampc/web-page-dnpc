@@ -14,15 +14,16 @@ export const LoginForm = () => {
       onSubmit={(e) => {
         e.preventDefault();
       }}
-      className="bg-dark-header p-8 rounded-2xl shadow-lg w-full max-w-md"
+      className="bg-dark-header p-8 rounded-2xl shadow-lg w-full max-w-lg"
       validationBehavior="native"
     >
-      <h2 className="text-2xl font-semibold mb-6 text-center text-slate-200 w-full">Login</h2>
+      <h2 className="text-4xl font-bold mb-6 text-center text-slate-200 w-full">Login</h2>
       <div className="mb-4 w-full">
         <Input
           name="username"
           label="Username"
           type="text"
+          size="lg"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -40,6 +41,7 @@ export const LoginForm = () => {
           name="password"
           label="Password"
           type="password"
+          size="lg"
           placeholder="••••••••"
           variant="bordered"
           value={password}
@@ -60,7 +62,7 @@ export const LoginForm = () => {
         <Link className="text-blue-500" href={'#'}>Forgot password?</Link>
       </div>
 
-      <Button type="submit" className="w-full mt-2">
+      <Button type="submit" size="lg" className="w-full mt-2">
         Sign In
       </Button>
       <div className="text-slate-200 text-sm text-center w-full">

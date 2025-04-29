@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/header/header";
 import { BannerHome } from "@/components/banner/banner-home";
+import { Footer } from "@/components/footer/footer";
 
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function MainLayout({
 
             {children}
           </div>
+          <Footer />
         </div>
       </div>
     </div>
