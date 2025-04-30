@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BannerHome } from "@/components/banner/banner-home";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 
@@ -19,7 +18,6 @@ export default function MainLayout({
       <div className="flex flex-col min-h-screen relative">
         <div className="flex-grow">
           <Header />
-          {/* <BannerHome /> */}
           <div className="container mx-auto">
             {children}
           </div>
