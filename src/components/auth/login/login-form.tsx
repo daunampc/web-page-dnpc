@@ -5,7 +5,7 @@ import { Input } from "@heroui/input"
 import Link from "next/link";
 import { useState } from "react";
 
-export const LoginForm = () => {
+export default function LoginForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

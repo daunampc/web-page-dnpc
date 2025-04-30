@@ -1,7 +1,7 @@
 import { Avatar } from "@heroui/react"
 import { Heart, Send } from "lucide-react"
 
-export const CommentItem = () => {
+export default function CommentItem() {
   return (
     <div className="flex w-full flex-row gap-2 font-sans text-slate-300">
       <div className="flex flex-col items-center justify-start">

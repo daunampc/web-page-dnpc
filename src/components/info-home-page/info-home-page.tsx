@@ -3,7 +3,7 @@ import ScrollAnimate from "../scroll-animate/scroll-animate"
 import { InfoFacebook, InfoGithub, InfoTwiter } from "./info-data"
 
 
-export const InfoHomePage = () => {
+export default function InfoHomePage() {
   return (
     <div>
       <ScrollAnimate>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/header/header";
 import { BannerHome } from "@/components/banner/banner-home";
-import { Footer } from "@/components/footer/footer";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
 
 
 export const metadata: Metadata = {
@@ -21,7 +21,6 @@ export default function MainLayout({
           <Header />
           {/* <BannerHome /> */}
           <div className="container mx-auto">
-
             {children}
           </div>
           <Footer />

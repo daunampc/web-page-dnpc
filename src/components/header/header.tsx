@@ -1,9 +1,9 @@
 'use client'
 import Link from "next/link"
-import { LoginModal } from "../auth/login/login-modal"
-import { SearchModal } from "../search/search-modal"
+import SearchModal from "../search/search-modal"
+import LoginModal from "../auth/login/login-modal"
 
-export const Header = () => {
+export default function Header() {
 
   return (
     <div className="w-full bg-dark-header">

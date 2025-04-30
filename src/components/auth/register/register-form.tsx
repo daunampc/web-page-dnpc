@@ -1,10 +1,8 @@
 'use client'
-import { Button } from "@heroui/button";
-import { Form } from "@heroui/form"
-import { Input } from "@heroui/input"
+import { Input, Form, Button } from "@heroui/react"
 import Link from "next/link";
 import { useState } from "react";
-export const RegisterForm = () => {
+export default function RegisterForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repassword, setRepassword] = useState<string>('');

@@ -8,7 +8,7 @@ import {
 } from "@heroui/react";
 import { Search, X } from "lucide-react";
 import { useState } from "react";
-export const SearchModal = () => {
+export default function SearchModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [query, setQuery] = useState<string>('')
   const toggleSearch = (is_show: boolean) => {

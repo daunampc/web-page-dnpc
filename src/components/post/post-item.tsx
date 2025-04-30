@@ -3,7 +3,7 @@ import { Card, CardBody, CardHeader } from "@heroui/card"
 import { Divider } from "@heroui/divider"
 import Image from "next/image"
 import Link from "next/link"
-export const PostItem = () => {
+export default function PostItem() {
   return (
     <Link href={'/post/124666'}>
       <Card shadow="sm" className="bg-dark-body">

@@ -3,7 +3,7 @@ import { Button } from "@heroui/button"
 import { Input } from "@heroui/input"
 import { useState } from "react"
 
-export const SubscribeForm = () => {
+export default function SubscribeForm() {
   const [email, setEmail] = useState('')
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

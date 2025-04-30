@@ -2,9 +2,9 @@
 
 import ScrollAnimate from "../scroll-animate/scroll-animate"
 import { Divider } from "@heroui/divider"
-import { PostItem } from "./post-item"
+import PostItem from "./post-item"
 
-export const PostData = () => {
+export default function PostData() {
 
   return (
     <div>

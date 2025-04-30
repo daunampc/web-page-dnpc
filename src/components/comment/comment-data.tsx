@@ -3,9 +3,9 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@
 
 import Link from "next/link"
 import { useMemo, useState } from "react";
-import { CommentItem } from "./comment-item";
+import CommentItem from "./comment-item";
 
-export const CommentData = () => {
+export default function CommentData() {
   const [selectedSortBy, setSelectedSortBy] = useState(new Set(["Sort By"]))
   const selectedSortByValue = useMemo(
     () => Array.from(selectedSortBy).join(", ").replace(/_/g, ""),

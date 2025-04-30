@@ -1,8 +1,8 @@
-import { InfoHomePage } from "@/components/info-home-page/info-home-page";
-import { PostData } from "@/components/post/post-data";
-import { SubscribeForm } from "@/components/subscribe/subscribe-form";
+import InfoHomePage from "@/components/info-home-page/info-home-page";
+import PostData from "@/components/post/post-data";
+import SubscribeForm from "@/components/subscribe/subscribe-form";
 
-export default function Home() {
+export default function page() {
   return (
     <div>
       <div className="mt-4">

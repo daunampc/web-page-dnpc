@@ -1,6 +1,6 @@
-import { SubscribeForm } from "../subscribe/subscribe-form"
+import SubscribeForm from "../subscribe/subscribe-form";
 
-export const Footer = () => {
+export default function Footer() {
   return (
     <div className="container mx-auto mt-40">
       <div className="flex justify-between items-center border-t border-b dark:border-slate-700 py-9">

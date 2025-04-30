@@ -1,12 +1,10 @@
 import { Avatar } from "@heroui/avatar"
 import Image from "next/image"
 import Tiptap from "../tip-tap/tip-tap"
-import { CommentData } from "../comment/comment-data"
+import CommentData from "../comment/comment-data"
 
-interface IPostPage {
-  html: string
-}
-export const PostPage = ({ html }: IPostPage) => {
+
+export default function PostPage() {
 
   return (
     <div className="w-full">
