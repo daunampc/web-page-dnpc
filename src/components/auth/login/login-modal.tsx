@@ -6,7 +6,7 @@ import {
   Button,
   useDisclosure
 } from "@heroui/react";
-import LoginForm from "./login-form";
+import LoginForm from "@/components/auth/login/login-form";
 export default function LoginModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

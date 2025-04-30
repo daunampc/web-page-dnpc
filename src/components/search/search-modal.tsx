@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function SearchModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [query, setQuery] = useState<string>('')
-  const toggleSearch = (is_show: boolean) => {
+  const toggleSearch = () => {
     setQuery('')
   }
   return (
@@ -27,7 +27,7 @@ export default function SearchModal() {
               {
                 query ? <X
                   size={24}
-                  onClick={() => toggleSearch(false)}
+                  onClick={() => toggleSearch()}
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-300 z-10"
                 /> : <Search
                   size={24}

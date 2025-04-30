@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import CommentItem from "./comment-item";
 
 export default function CommentData() {
-  const [selectedSortBy, setSelectedSortBy] = useState(new Set(["Sort By"]))
+  const [selectedSortBy] = useState(new Set(["Sort By"]))
   const selectedSortByValue = useMemo(
     () => Array.from(selectedSortBy).join(", ").replace(/_/g, ""),
     [selectedSortBy],
