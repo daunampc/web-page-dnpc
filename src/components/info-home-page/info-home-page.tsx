@@ -5,15 +5,13 @@ import { InfoFacebook, InfoGithub, InfoTwiter } from "./info-data"
 
 export default function InfoHomePage() {
   return (
-    <div>
-      <ScrollAnimate>
-        <div className="grid grid-cols-4 gap-6">
-          <InfoGithub />
-          <InfoTwiter />
-          <InfoFacebook />
-          <InfoGithub />
-        </div>
-      </ScrollAnimate>
-    </div>
+    <ScrollAnimate>
+      <div className="grid grid-cols-2 gap-6 xl:grid-cols-4">
+        <InfoGithub />
+        <InfoTwiter />
+        <InfoFacebook />
+        <InfoGithub />
+      </div>
+    </ScrollAnimate>
   )
 }

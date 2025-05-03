@@ -1,7 +1,7 @@
 import { Potta_One, Zen_Maru_Gothic, Roboto, Noto_Color_Emoji } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
-
+import { HeroUIProvider } from "@heroui/react";
 
 const geistZenMaruGothic = Zen_Maru_Gothic({
   weight: ['500', "700", '900'],
@@ -38,7 +38,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} ${geistRoboto.variable} ${geistNotoColorEmoji.variable} antialiased `}>
         <ThemeProvider attribute={'class'} defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
+          <HeroUIProvider>
+            {children}
+          </HeroUIProvider>
         </ThemeProvider>
       </body>
     </html>

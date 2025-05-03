@@ -16,7 +16,10 @@ const config: Config = {
         foreground: "var(--foreground)",
         'dark-body': '#0A0A0A',
         'dark-header': '#121212',
-        'dark-pink-primary': '#5E129B'
+        'dark-gray-1': '#212121',
+        'dark-pink-primary': '#5E129B',
+        'success': '#04AA2A',
+        'danger': '#F04438'
       },
       fontFamily: {
         'potta-none': ['var(--font-potta-one)'],

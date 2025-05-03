@@ -13,7 +13,7 @@ export default function Header() {
             DNPC-HOYOPLAY
           </div>
         </Link>
-        <div className="flex items-center text-white font-semibold gap-2">
+        <div className="hidden items-center text-white font-semibold gap-2 lg:flex">
           <Link href={'/'}>
             <div className="px-3">
               Home
