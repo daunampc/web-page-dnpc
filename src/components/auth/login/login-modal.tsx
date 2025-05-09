@@ -22,7 +22,7 @@ export default function LoginModal() {
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg" backdrop="blur" placement="top" >
         <ModalContent>
-          <LoginForm />
+          <LoginForm onOpenChange={onOpenChange} />
         </ModalContent>
       </Modal>
     </>

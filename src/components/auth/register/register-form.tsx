@@ -1,28 +1,61 @@
 'use client'
+import { IAxiosLoading } from "@/interface/axios";
+import axiosinstance from "@/lib/axios";
 import { Input, Form, Button } from "@heroui/react"
-import Link from "next/link";
-import { useState } from "react";
-export default function RegisterForm() {
-  const [username, setUsername] = useState<string>('');
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+
+interface IRegisterForm {
+  onOpenChange: () => void;
+}
+export default function RegisterForm({ }: IRegisterForm) {
+  const router = useRouter()
+  const [loading, setLoading] = useState<IAxiosLoading>({
+    loading: false,
+    error: false,
+    message: null,
+    data: null
+  })
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repassword, setRepassword] = useState<string>('');
+
+  const onActionRegister = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading({ loading: true, error: false })
+    const data = Object.fromEntries(new FormData(event.currentTarget));
+    try {
+      await axiosinstance.post('/auth/register', data)
+      setLoading({
+        loading: false,
+        error: false
+      })
+      router.refresh()
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setLoading({ loading: false, message: error.response?.data.message, error: true })
+      }
+
+    }
+
+  }
+
   return (
     <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="bg-dark-header p-8 rounded-2xl shadow-lg w-full max-w-md"
+      onSubmit={onActionRegister}
+      className="rounded-2xl shadow-lg w-full max-w-md"
       validationBehavior="native"
     >
       <h2 className="text-2xl w-full font-semibold mb-6 text-center text-slate-200">Register</h2>
       <div className="mb-4 w-full">
         <Input
-          name="username"
-          label="Username"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           variant="bordered"
           color="primary"
@@ -46,7 +79,12 @@ export default function RegisterForm() {
             inputWrapper: 'bg-transparent',
             input: 'text-slate-200'
           }}
-
+          validate={(value) => {
+            if (value.length === 0) {
+              return 'Password must not be empty'
+            }
+            return null
+          }}
           onChange={(e) => setPassword(e.target.value)}
           required
           className="w-full"
@@ -61,6 +99,15 @@ export default function RegisterForm() {
           variant="bordered"
           color="primary"
           value={repassword}
+          validate={(value) => {
+            if (value.length === 0) {
+              return 'Password must not be empty'
+            }
+            if (value !== password) {
+              return 'Passwords do not match'
+            }
+            return null
+          }}
           classNames={{
             inputWrapper: 'bg-transparent',
             input: 'text-slate-200'
@@ -71,15 +118,10 @@ export default function RegisterForm() {
           className="w-full"
         />
       </div>
-
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full bg-dark-pink-primary rounded-md">
         Register
       </Button>
-      <div className="text-slate-200 text-sm text-center w-full">
-        You already have an account? <Link className="text-blue-500" href={'/register'}>
-          Sign up here.
-        </Link>
-      </div>
+      <div className="text-sm m-auto text-center text-danger">{loading.error && loading.message}</div>
     </Form>
 
   )

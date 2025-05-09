@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import { Menu, Bell } from "lucide-react";
-import { Badge, Button, Input, Avatar } from "@heroui/react";       // hoặc component Input bạn đang dùng
+import { Badge, Button, Input, Avatar } from "@heroui/react";
 import SideBar from "./side-bar";
 export default function LayoutAdmin() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

@@ -1,7 +1,10 @@
-import LoginForm from "@/components/auth/login/login-form";
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function page() {
-  return (
-    <LoginForm />
-  )
+export default async function page() {
+  const user = await getCurrentUser();
+  if (user) {
+    redirect("/");
+  }
+  return <></>;
 }

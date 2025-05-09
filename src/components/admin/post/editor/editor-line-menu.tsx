@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view'
+import { Decoration, DecorationSet } from 'prosemirror-view'
 import { ReactRenderer } from '@tiptap/react'
 import tippy, { Instance } from 'tippy.js'
 import 'tippy.js/dist/tippy.css'
@@ -25,7 +25,7 @@ export const EditorLineMenu = Extension.create({
 
         state: {
           init: () => DecorationSet.empty,
-          apply(tr, old) {
+          apply(tr) {
             // recompute on every transaction
             const decos: Decoration[] = []
 
@@ -34,7 +34,7 @@ export const EditorLineMenu = Extension.create({
               if (node.isTextblock) {
                 const deco = Decoration.widget(
                   pos + 1,
-                  (view: EditorView) => {
+                  () => {
                     const btn = document.createElement('button')
                     btn.textContent = '+'
                     btn.className = `

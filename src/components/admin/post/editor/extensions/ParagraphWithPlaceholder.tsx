@@ -76,7 +76,7 @@ export const ParagraphWithPlaceholder = Node.create({
       return {
         dom,
         contentDOM,
-        update(updatedNode) {
+        update() {
           // update id if missing
           const existingId = dom.getAttribute('data-id')
           if (!existingId) {

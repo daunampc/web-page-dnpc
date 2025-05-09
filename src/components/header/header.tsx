@@ -1,16 +1,18 @@
 'use client'
 import Link from "next/link"
 import SearchModal from "../search/search-modal"
-import LoginModal from "../auth/login/login-modal"
+import { useAuth } from "@/context/AuthContext"
+import { AccountModal } from "../auth/account/account-modal"
+import AuthModal from "../auth/auth-modal"
 
 export default function Header() {
-
+  const { user } = useAuth()
   return (
     <div className="w-full bg-dark-header">
       <div className="flex items-center justify-between container mx-auto py-2.5">
         <Link href={'/'}>
           <div className="text-white font-potta-none font-normal text-xl">
-            DNPC-HOYOPLAY
+            Itou Toshiro
           </div>
         </Link>
         <div className="hidden items-center text-white font-semibold gap-2 lg:flex">
@@ -32,7 +34,8 @@ export default function Header() {
             Contact
           </div>
           <SearchModal />
-          <LoginModal />
+          {!user ? <AuthModal /> : <AccountModal />}
+
         </div>
       </div>
     </div>

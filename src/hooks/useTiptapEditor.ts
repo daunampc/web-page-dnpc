@@ -1,6 +1,6 @@
 "use client";
 
-import { JSONContent, useEditor, type Editor } from "@tiptap/react";
+import { useEditor, type Editor } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";

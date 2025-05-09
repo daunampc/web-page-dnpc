@@ -1,5 +1,5 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, Chip } from "@heroui/react"
-import { CalendarClock, ChevronDown, UserPen } from "lucide-react"
+import { Button, Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
+import { CalendarClock, ChevronDown, UserPen } from "lucide-react";
 
 export default function Widget() {
   return (
@@ -26,5 +26,5 @@ export default function Widget() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

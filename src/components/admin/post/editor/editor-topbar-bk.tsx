@@ -23,8 +23,8 @@ import { Button, Tooltip } from '@heroui/react';
 type Props = { editor: Editor | null };
 
 export default function EditorTopbar({ editor }: Props) {
-  const [height, setHeight] = React.useState(480)
-  const [width, setWidth] = React.useState(640)
+  const [height] = React.useState(480)
+  const [width] = React.useState(640)
   if (!editor) return null;
 
   const btn = (onClick: () => void, Icon: React.ComponentType<any>, active?: boolean) => (

@@ -16,8 +16,7 @@ type Props = SuggestionProps<Command> & {
   close: () => void;
 };
 
-export function EditorSlashList({ items, command, range, editor, close }: Props) {
-  // giả sử bạn đã gán mỗi Command một field group: "AI" hoặc "FORMAT"
+export function EditorSlashList({ items, command, close }: Props) {
   const groups: Record<string, Command[]> = items.reduce((acc, item) => {
     const g = (item as any).group || "Other";
     acc[g] = acc[g] || [];
