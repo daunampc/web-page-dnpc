@@ -1,39 +1,33 @@
 'use client'
 import { Spinner, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Pagination } from "@heroui/react";
 import Link from "next/link"
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ICommentDataFetch } from "@/interface/comment";
 import CommentForm from "./comment-form";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 import { useComments } from "@/hooks/useComments";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IPostItem } from "@/interface/post";
 import CommentItem from "./comment-item";
 
 
 export default function CommentData({ data_comment, data_post }: { data_comment: ICommentDataFetch, data_post: IPostItem }) {
   const { user } = useAuth()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
-  const { dataComment } = useComments(data_post && data_post.postId, 1, { fallbackData: data_comment })
-  const [loadingCommentNew] = useState<boolean>(false)
+  const [pageComment, setPageComment] = useState<number>(1);
+  const commentRef = useRef<HTMLDivElement>(null)
+
+  const { dataComment, isLoading } = useComments(data_post && data_post.postId, pageComment, { fallbackData: data_comment })
   const [selectedSortBy] = useState(new Set(["Sort By"]))
   const [showReply, setShowReply] = useState<{ id_comment: string; is_show: boolean }>({
     id_comment: '',
     is_show: false
   })
 
-  const onActionPageComment = useCallback((page: number) => {
-    // 1) clone ra URLSearchParams để .set()
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('page', page.toString())
 
-    // 2) replace (hoặc push) URL mới
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-
-  }, [searchParams, pathname, router])
+  const onActionPageComment = (page: number) => {
+    commentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    setPageComment(page)
+  }
 
 
   const selectedSortByValue = useMemo(
@@ -58,7 +52,6 @@ export default function CommentData({ data_comment, data_post }: { data_comment:
       }
     }
   }
-  console.log(data_comment)
   if (!data_comment || !data_post) {
     return null
   }
@@ -85,7 +78,7 @@ export default function CommentData({ data_comment, data_post }: { data_comment:
         : <div className="flex mt-6 gap-2">
           <CommentForm is_reply={false} post_id={data_post.postId} user={user} />
         </div>}
-      <div className="mt-20">
+      <div className="mt-20" ref={commentRef}>
         <div className="flex items-center justify-between">
           <Dropdown>
             <DropdownTrigger>
@@ -104,11 +97,11 @@ export default function CommentData({ data_comment, data_post }: { data_comment:
             </DropdownMenu>
           </Dropdown>
           <div className="text-slate-300">
-            {/* {dataComment?.data.length} comments */}
+            {dataComment && dataComment.meta.total} comments
           </div>
         </div>
         <div className="mt-10 space-y-7">
-          {loadingCommentNew && <>
+          {isLoading && <>
             <div className="flex w-full flex-row gap-2 font-sans text-slate-300 justify-center">
               <Spinner color="secondary" />
             </div>
@@ -121,7 +114,7 @@ export default function CommentData({ data_comment, data_post }: { data_comment:
         </div>
         {
           dataComment && dataComment.meta.lastPage > 1 && <div className="mt-10 flex justify-end">
-            <Pagination onChange={onActionPageComment} showControls initialPage={1} total={dataComment.meta.lastPage || 0} />
+            <Pagination page={pageComment} onChange={onActionPageComment} showControls initialPage={1} total={dataComment.meta.lastPage || 0} />
           </div>
         }
       </div>

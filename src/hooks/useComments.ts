@@ -6,18 +6,18 @@ const fetcher = (url: string) =>
   axiosinstance.get<ICommentDataFetch>(url).then(res => res.data);
 export function useComments(postId: string, page?: number,
   options?: { fallbackData?: ICommentDataFetch }) {
-  const { data, error, mutate } = useSWR<ICommentDataFetch>(
-    `/comments/get?post_id=${postId}`,
+  const { data, error, mutate, isValidating } = useSWR<ICommentDataFetch>(
+    `/comments/get?post_id=${postId}&page=${page}`,
     fetcher, {
-    fallbackData: options?.fallbackData,
+    fallbackData: page === 1 ? options?.fallbackData : undefined,
     revalidateOnFocus: false,
     revalidateIfStale: false,
     revalidateOnReconnect: false,
-    revalidateOnMount: false,    // ✂️ TẮT luôn re-fetch khi mount
+    revalidateOnMount: false,
     dedupingInterval: 600_000,
   }
   );
-  return { dataComment: data, error, mutate };
+  return { dataComment: data, error, mutate, isLoading: isValidating };
 }
 
 
