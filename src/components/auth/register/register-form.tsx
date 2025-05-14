@@ -1,37 +1,38 @@
-'use client'
+import { useAuth } from "@/context/AuthContext";
 import { IAxiosLoading } from "@/interface/axios";
 import axiosinstance from "@/lib/axios";
 import { Input, Form, Button } from "@heroui/react"
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
-
+import { FormEvent } from "react";
 interface IRegisterForm {
-  onOpenChange: () => void;
+  email: string;
+  setEmail: (email: string) => void
+  loading: IAxiosLoading
+  setLoading: (data: IAxiosLoading) => void
+  password: string;
+  setPassword: (password: string) => void;
+  rePassword: string;
+  setRepassword: (password: string) => void;
+  onOpenChange: () => void
 }
-export default function RegisterForm({ }: IRegisterForm) {
-  const router = useRouter()
-  const [loading, setLoading] = useState<IAxiosLoading>({
-    loading: false,
-    error: false,
-    message: null,
-    data: null
-  })
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [repassword, setRepassword] = useState<string>('');
+export default function RegisterForm({ onOpenChange, email, setEmail, password, setPassword, rePassword, setRepassword, loading, setLoading }: IRegisterForm) {
+  const { setUser } = useAuth()
 
   const onActionRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading({ loading: true, error: false })
+
     const data = Object.fromEntries(new FormData(event.currentTarget));
     try {
-      await axiosinstance.post('/auth/register', data)
-      setLoading({
-        loading: false,
-        error: false
-      })
-      router.refresh()
+      const res = await axiosinstance.post('/auth/register', data)
+      if (res.data) {
+        setLoading({
+          loading: false,
+          error: false
+        })
+        setUser(null)
+        onOpenChange()
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setLoading({ loading: false, message: error.response?.data.message, error: true })
@@ -92,13 +93,13 @@ export default function RegisterForm({ }: IRegisterForm) {
       </div>
       <div className="mb-6 w-full">
         <Input
-          name="re-password"
-          label="Re-Password"
+          name="re_password"
+          label="Reply password"
           type="password"
           placeholder="••••••••"
           variant="bordered"
           color="primary"
-          value={repassword}
+          value={rePassword}
           validate={(value) => {
             if (value.length === 0) {
               return 'Password must not be empty'
@@ -118,7 +119,7 @@ export default function RegisterForm({ }: IRegisterForm) {
           className="w-full"
         />
       </div>
-      <Button type="submit" className="w-full bg-dark-pink-primary rounded-md">
+      <Button isLoading={loading.loading} type="submit" className="w-full bg-dark-pink-primary rounded-md">
         Register
       </Button>
       <div className="text-sm m-auto text-center text-danger">{loading.error && loading.message}</div>

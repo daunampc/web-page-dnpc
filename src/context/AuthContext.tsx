@@ -15,10 +15,9 @@ export function AuthProvider({ children, initialUser }: IAuthProviderProps) {
 
   useEffect(() => {
     setUser(initialUser);
-  }, [initialUser, user]);
+  }, [initialUser]);
 
   const setDataUser = (u: IUser | null) => {
-    console.log(u)
     setUser(u)
   }
   return (

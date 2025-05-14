@@ -8,20 +8,24 @@ import {
   Button,
   useDisclosure,
   Divider,
+  Avatar,
 } from "@heroui/react";
 import { ArrowLeft, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AccountPreferencesForm, AccountSettingForm } from "./account-setting-form";
 import axiosinstance from "@/lib/axios";
 import { useAuth } from "@/context/AuthContext";
+import { useAuthSWR } from "@/hooks/useAuth";
 
-export const AccountModal = () => {
-  const { setUser } = useAuth()
-
+export const AccountModal = ({ user_id }: { user_id: string }) => {
+  const { user, setUser } = useAuth()
+  const { data_user } = useAuthSWR(user_id)
   const [loading, setLoading] = useState<boolean>(false)
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [modalSetting, setModalSetting] = useState<boolean>(false)
   const [modalPreferences, setModalPreferences] = useState<boolean>(false)
+
+
 
   useEffect(() => {
     setModalPreferences(false)
@@ -39,8 +43,9 @@ export const AccountModal = () => {
     }
   }
   return (
-    <div>
-      <Button onPress={onOpen} className="bg-dark-pink-primary px-5 py-1.5 rounded-xl">
+    <div className="relative">
+      <Button onPress={onOpen} className="bg-dark-pink-primary px-3 py-2 rounded-xl">
+        <Avatar src={user?.avatar} size="sm" />
         Account
       </Button>
       <Modal isOpen={isOpen} hideCloseButton onOpenChange={onOpenChange} placement="top" backdrop="blur">
@@ -75,8 +80,8 @@ export const AccountModal = () => {
                   </> : <>
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold">Itou Toshiro</div>
-                        <div className="text-sm text-slate-400 font-semibold">toshiroitdv@gmail.com</div>
+                        <div className="font-semibold">{data_user?.name}</div>
+                        <div className="text-sm text-slate-400 font-semibold">{data_user?.email}</div>
                       </div>
                       <div onClick={() => setModalSetting(true)} className="cursor-pointer font-semibold text-sm text-primary">Edit</div>
                     </div>

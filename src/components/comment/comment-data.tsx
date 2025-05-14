@@ -1,35 +1,68 @@
 'use client'
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Avatar, Textarea } from "@heroui/react";
-
+import { Spinner, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Pagination } from "@heroui/react";
 import Link from "next/link"
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { ICommentDataFetch } from "@/interface/comment";
+import CommentForm from "./comment-form";
+import toast from "react-hot-toast";
+import { useAuth } from "@/context/AuthContext";
+import { useComments } from "@/hooks/useComments";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { IPostItem } from "@/interface/post";
 import CommentItem from "./comment-item";
-import { commentsData } from "@/data/comment";
 
-export default function CommentData() {
+
+export default function CommentData({ data_comment, data_post }: { data_comment: ICommentDataFetch, data_post: IPostItem }) {
+  const { user } = useAuth()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  const { dataComment } = useComments(data_post && data_post.postId, 1, { fallbackData: data_comment })
+  const [loadingCommentNew] = useState<boolean>(false)
   const [selectedSortBy] = useState(new Set(["Sort By"]))
   const [showReply, setShowReply] = useState<{ id_comment: string; is_show: boolean }>({
     id_comment: '',
     is_show: false
   })
+
+  const onActionPageComment = useCallback((page: number) => {
+    // 1) clone ra URLSearchParams để .set()
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', page.toString())
+
+    // 2) replace (hoặc push) URL mới
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+
+  }, [searchParams, pathname, router])
+
+
   const selectedSortByValue = useMemo(
     () => Array.from(selectedSortBy).join(", ").replace(/_/g, ""),
     [selectedSortBy],
   );
   const onActionReply = (id: string) => {
-    if (id === showReply.id_comment) {
-      setShowReply({
-        id_comment: id,
-        is_show: !showReply.is_show
-      })
-    } else {
-      setShowReply({
-        id_comment: id,
-        is_show: true
-      })
+    if (!user) {
+      toast.error('Vui lòng đăng nhập tài khoản')
     }
-
+    if (user) {
+      if (id === showReply.id_comment) {
+        setShowReply({
+          id_comment: id,
+          is_show: !showReply.is_show
+        })
+      } else {
+        setShowReply({
+          id_comment: id,
+          is_show: true
+        })
+      }
+    }
   }
+  console.log(data_comment)
+  if (!data_comment || !data_post) {
+    return null
+  }
+
   return (
     <div className="mt-10">
       <div className="flex justify-between items-center">
@@ -37,11 +70,10 @@ export default function CommentData() {
           Member discussion
         </h1>
         <span className="text-slate-300 ">
-          7 comments
         </span>
       </div>
 
-      <div className="text-center">
+      {!user ? <div className="text-center">
         <h1 className="text-3xl font-bold">Join the discussion</h1>
         <div className="mt-2">Become a member of Itou Toshiro to start commenting.</div>
         <div className="mt-5">
@@ -50,15 +82,9 @@ export default function CommentData() {
             Already a member?{" "}<Link className="font-bold text-green-500" href={'/login'}>Login</Link></div>
         </div>
       </div>
-      <div className="flex mt-6 gap-2">
-        <div className="flex-shrink">
-          <Avatar src="/images/profile.jpg" />
-        </div>
-        <div className="flex-1">
-          <Textarea className="w-full text-lg" placeholder="Add your text comment" />
-          <Button className="mt-4 bg-dark-pink-primary">Add Comment</Button>
-        </div>
-      </div>
+        : <div className="flex mt-6 gap-2">
+          <CommentForm is_reply={false} post_id={data_post.postId} user={user} />
+        </div>}
       <div className="mt-20">
         <div className="flex items-center justify-between">
           <Dropdown>
@@ -78,17 +104,26 @@ export default function CommentData() {
             </DropdownMenu>
           </Dropdown>
           <div className="text-slate-300">
-            7 comments
+            {/* {dataComment?.data.length} comments */}
           </div>
         </div>
         <div className="mt-10 space-y-7">
-          {commentsData.map((item) => {
+          {loadingCommentNew && <>
+            <div className="flex w-full flex-row gap-2 font-sans text-slate-300 justify-center">
+              <Spinner color="secondary" />
+            </div>
+          </>}
+          {dataComment?.data && dataComment.data.map((item) => {
             return (
-              <CommentItem key={item.id} {...item} is_show={showReply.is_show} id_comment={showReply.id_comment} onActionReply={onActionReply} />
+              <CommentItem key={item.commentId} post_id={data_post.postId} {...item} id_comment={item.commentId} onActionReply={onActionReply} is_show={showReply.is_show} id_comment_show={showReply.id_comment} user={item.user} />
             )
           })}
-
         </div>
+        {
+          dataComment && dataComment.meta.lastPage > 1 && <div className="mt-10 flex justify-end">
+            <Pagination onChange={onActionPageComment} showControls initialPage={1} total={dataComment.meta.lastPage || 0} />
+          </div>
+        }
       </div>
     </div >
   )

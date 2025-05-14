@@ -4,12 +4,13 @@ import SearchModal from "../search/search-modal"
 import { useAuth } from "@/context/AuthContext"
 import { AccountModal } from "../auth/account/account-modal"
 import AuthModal from "../auth/auth-modal"
+import NotificationHeader from "./notification-header"
 
 export default function Header() {
   const { user } = useAuth()
   return (
     <div className="w-full bg-dark-header">
-      <div className="flex items-center justify-between container mx-auto py-2.5">
+      <div className="flex items-center justify-between container mx-auto py-5">
         <Link href={'/'}>
           <div className="text-white font-potta-none font-normal text-xl">
             Itou Toshiro
@@ -34,8 +35,13 @@ export default function Header() {
             Contact
           </div>
           <SearchModal />
-          {!user ? <AuthModal /> : <AccountModal />}
-
+          {!user ? <AuthModal /> : <AccountModal user_id={user.user_id} />}
+          <NotificationHeader />
+        </div>
+        <div className="lg:hidden flex items-center gap-3">
+          <SearchModal />
+          {!user ? <AuthModal /> : <AccountModal user_id={user.user_id} />}
+          <NotificationHeader />
         </div>
       </div>
     </div>

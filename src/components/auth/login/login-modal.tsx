@@ -1,14 +1,11 @@
 'use client'
 import { LogIn } from "lucide-react";
 import {
-  Modal,
-  ModalContent,
   Button,
   useDisclosure
 } from "@heroui/react";
-import LoginForm from "@/components/auth/login/login-form";
 export default function LoginModal() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { onOpen } = useDisclosure();
 
   return (
     <>
@@ -20,11 +17,6 @@ export default function LoginModal() {
         Log-In/Register
       </Button>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg" backdrop="blur" placement="top" >
-        <ModalContent>
-          <LoginForm onOpenChange={onOpenChange} />
-        </ModalContent>
-      </Modal>
     </>
   )
 }

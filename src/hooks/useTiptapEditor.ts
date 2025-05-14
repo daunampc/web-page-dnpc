@@ -121,12 +121,11 @@ export function useTiptapEditor({ is_edit, initialContent }: IUseTiptapEditor) {
         class:
           "ProseMirror prose prose-lg p-6" +
           "focus:outline-none focus:ring-0 outline-none ring-0",
-        style: "outline: none !important; box-shadow: none !important;",
+        style: "outline: none !important; box-shadow: none !important;font-family:'__Roboto_10f679'",
       },
     },
     content: initialContent,
   });
-
 
   return editor as Editor;
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import GlobalReplyListener from "@/components/comment/global-reply-listener";
 
 
 export const metadata: Metadata = {
@@ -14,17 +15,20 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-dark-body dark">
-      <div className="flex flex-col min-h-screen relative">
-        <div className="flex-grow">
-          <Header />
-          <div className="container mx-auto">
-            {children}
+    <>
+      <GlobalReplyListener />
+      <div className="bg-dark-body dark">
+        <div className="flex flex-col min-h-screen relative">
+          <div className="flex-grow">
+            <Header />
+            <div className="container mx-auto">
+              {children}
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
-    </div>
+    </>
 
   );
 }

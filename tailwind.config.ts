@@ -11,6 +11,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        // key: value
+        16: 'repeat(16, minmax(0, 1fr))',
+      },
+      keyframes: {
+        enter: {
+          '0%': { opacity: '0', transform: 'translateY(-25%)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        leave: {
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-25%)' },
+        },
+      },
+      animation: {
+        'toast-in': 'enter 300ms ease-out',
+        'toast-out': 'leave 200ms ease-in forwards',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -36,11 +54,11 @@ const config: Config = {
           '2xl': '6rem',           // ≥1536px: 96px
         },
         screens: {
-          sm: '640px',
-          md: '768px',
+          sm: '840px',
+          md: '968px',
           lg: '1024px',
-          xl: '1336px',            // <-- max-width container tại xl
-          '2xl': '1536px',
+          xl: '1280px',
+          '2xl': '1516px',
         },
       },
     },

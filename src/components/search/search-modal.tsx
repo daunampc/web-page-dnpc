@@ -10,13 +10,14 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 export default function SearchModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   const [query, setQuery] = useState<string>('')
   const toggleSearch = () => {
     setQuery('')
   }
   return (
     <>
-      <Button onPress={onOpen} isIconOnly aria-label="search" className="bg-transparent">
+      <Button onPress={onOpen} isIconOnly aria-label="search" className="bg-dark-pink-primary">
         <Search size={18} />
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg" backdrop="blur" placement="top">

@@ -18,13 +18,13 @@ export const InfoGithub = () => {
           width={40}
         />
         <div className="flex flex-col">
-          <p className="text-md">Đậu Nam PC</p>
+          <p className="text-md text-slate-200">Đậu Nam PC</p>
           <p className="text-small text-default-500">daunampc.com</p>
         </div>
       </CardHeader>
       <Divider className="bg-slate-700" />
       <CardBody>
-        <p className="text-sm">
+        <p className="text-sm text-slate-300">
           Delivering source code, resources, tutorials, and practical products
         </p>
       </CardBody>
@@ -52,7 +52,7 @@ export const InfoTwiter = () => {
             src="https://heroui.com/avatars/avatar-1.png"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none"> Đậu Nam PC </h4>
+            <h4 className="text-small font-semibold leading-none text-slate-200"> Đậu Nam PC </h4>
             <h5 className="text-small tracking-tight text-default-400">@daunampc</h5>
           </div>
         </div>
@@ -67,7 +67,7 @@ export const InfoTwiter = () => {
           {isFollowed ? "Unfollow" : "Follow"}
         </Button>
       </CardHeader>
-      <CardBody className="px-3 py-0 text-small text-default-400">
+      <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">
         <p>Frontend developer and UI/UX enthusiast. Join me on this coding adventure!</p>
         <span className="pt-2">
           #FrontendWithZoey
@@ -102,7 +102,7 @@ export const InfoFacebook = () => {
             src="https://heroui.com/avatars/avatar-1.png"
           />
           <div className="flex flex-col gap-1 items-start justify-center">
-            <h4 className="text-small font-semibold leading-none "> Đậu Nam PC </h4>
+            <h4 className="text-small font-semibold leading-none text-slate-200"> Đậu Nam PC </h4>
             <h5 className="text-small tracking-tight text-default-400">@daunampc</h5>
           </div>
         </div>
@@ -117,7 +117,7 @@ export const InfoFacebook = () => {
           {isFollowed ? "Unfollow" : "Follow"}
         </Button>
       </CardHeader>
-      <CardBody className="px-3 py-0 text-small text-default-400">
+      <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">
         <p>Frontend developer and UI/UX enthusiast. Join me on this coding adventure!</p>
         <span className="pt-2">
           #FrontendWithZoey

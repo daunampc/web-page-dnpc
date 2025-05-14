@@ -1,9 +1,11 @@
 import { Potta_One, Zen_Maru_Gothic, Roboto, Noto_Color_Emoji } from "next/font/google";
 import "./globals.css";
+
 import { ThemeProvider } from "@/providers/theme-provider";
 import { HeroUIProvider } from "@heroui/react";
 import { AuthProvider } from "@/context/AuthContext";
 import { getCurrentUser } from "@/lib/auth";
+import { Toaster } from "react-hot-toast";
 
 const geistZenMaruGothic = Zen_Maru_Gothic({
   weight: ['500', "700", '900'],
@@ -39,11 +41,29 @@ export default async function RootLayout({
   const user = await getCurrentUser()
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} ${geistRoboto.variable} ${geistNotoColorEmoji.variable} antialiased `}>
-        <ThemeProvider attribute={'class'} defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <body className={`${geistZenMaruGothic.className} ${geistPottaOne.variable} ${geistRoboto.variable} ${geistNotoColorEmoji.variable} antialiased`}>
+        <ThemeProvider attribute={'class'} defaultTheme='system' disableTransitionOnChange>
           <HeroUIProvider>
             <AuthProvider initialUser={user}>
               {children}
+              <Toaster
+                position="top-center"
+                toastOptions={{
+                  duration: 3000,
+                  style: {
+                    padding: '12px 16px', borderRadius: '8px',
+                    background: '#333',
+                    color: '#fff',
+                  },
+                  error: {
+                    icon: '❌',
+                    style: {
+                      color: '#fff',
+                    },
+                  },
+                }}
+              />
+
             </AuthProvider>
           </HeroUIProvider>
         </ThemeProvider>

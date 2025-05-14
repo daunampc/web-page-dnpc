@@ -1,5 +1,5 @@
 import { blogMenu } from "@/data/menu"
-import { MenuItem } from "@/interface/post";
+import { IGetPostData, MenuItem } from "@/interface/post";
 
 export const findTitlePageByHref = (pathname: string): string => {
   let title_page: MenuItem | undefined | null = null
@@ -21,4 +21,29 @@ export const findTitlePageByHref = (pathname: string): string => {
   }
   return 'Không xác định'
 
+}
+
+export function buildInternalPostHomeApiUrl(params: IGetPostData): string {
+  const queryParts: string[] = [];
+
+  // Bắt buộc có limit
+  queryParts.push(`limit=${params.limit}`);
+
+  // Tùy chọn: page
+  if (params.page !== undefined) {
+    queryParts.push(`page=${params.page}`);
+  }
+
+  // Tùy chọn: type
+  if (params.type && params.type.length > 0) {
+    for (const t of params.type) {
+      queryParts.push(`type=${t}`);
+    }
+
+    // Nếu muốn dạng `type=hot,top-view`:
+    // queryParts.push(`type=${params.type.join(',')}`);
+  }
+
+  const queryString = queryParts.join('&');
+  return `/posts/get/home-page?${queryString}`;
 }

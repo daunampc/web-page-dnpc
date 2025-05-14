@@ -21,3 +21,52 @@ export interface IUseTiptapEditor {
   is_edit: boolean
 }
 
+export interface IPostItem {
+  id: number;
+  postId: string;
+  image: string;
+  title: string;
+  slug: string;
+  description: string;
+  content: JSON;
+  published: string;
+  user_id: string;
+  createdAt: Date,
+  updatedAt: Date,
+  viewCount: number
+}
+export interface IPostData {
+  data: IPostItem[],
+  meta: {
+    total: number;
+    page: number;
+    lastPage: number
+    limit: number
+  }
+}
+
+export interface IFetchPostDataHome {
+  post_last_new: IPostItem[] | null,
+  post_top_view: IPostItem[] | null,
+  post_top: IPostItem[] | null,
+}
+
+export interface IUsePosts {
+  page: number;
+  query: string | null;
+  meta: IPostDataShow
+}
+
+export interface IPostDataShow {
+  type: 'last-new' | 'hot' | 'top-view' | 'search'
+  limit: 4 | 8 | 12 | 16 | 20,
+  data_post: IPostItem[] | null
+  is_show_pagination?: boolean
+}
+
+export interface IGetPostData {
+  limit: number
+  page?: number;
+  type?: ('last-new' | 'hot' | 'top-view')[]
+
+}

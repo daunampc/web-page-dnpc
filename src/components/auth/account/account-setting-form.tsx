@@ -8,40 +8,54 @@ import { FormEvent, useEffect, useState } from "react";
 export const AccountSettingForm = () => {
   const { user } = useAuth()
   const [profile, setProfile] = useState<IUser | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
   useEffect(() => {
     const data = async () => {
       if (user && user.user_id) {
         try {
           const res = await axiosinstance.get(`/users/info?user_id=${user.user_id}`)
-          setProfile(res.data)
+          if (res.data) {
+            setProfile({
+              ...res.data
+            })
+          }
         } catch (error) {
           console.log(error)
         }
       }
     }
     data()
-  }, [user])
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  }, [])
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = Object.fromEntries(new FormData(event.currentTarget));
     try {
-      axiosinstance.put('/users/update', {
+      setLoading(true)
+      await axiosinstance.put('/users/update', {
         user_id: user?.user_id,
         ...data
       })
-    } catch (error) {
-      console.log(error)
+      setLoading(false)
+    } catch {
+      setLoading(false)
     }
   }
-  console.log(profile?.name)
   return (
     <Form onSubmit={onSubmit} className="gap-5">
       <Input
         isRequired
         label="Name"
         labelPlacement="outside"
-        name="name"
-        defaultValue={profile && profile.name || ""}
+        disabled={loading}
+        name="name" onChange={(e) => {
+          if (profile) {
+            setProfile({
+              ...profile,
+              name: e.target.value
+            })
+          }
+        }}
+        value={profile && profile.name || ""}
         placeholder="Enter your Name"
         type="text"
         validate={(value) => {
@@ -55,13 +69,23 @@ export const AccountSettingForm = () => {
       <Input
         isRequired
         label="Email"
+        disabled={loading}
         labelPlacement="outside"
         name="email"
-        defaultValue={profile?.email}
+        value={profile?.email}
+        onChange={(e) => {
+          if (profile) {
+            setProfile({
+              ...profile,
+              email: e.target.value
+            })
+          }
+        }}
         placeholder="Enter your email"
         type="email"
+
       />
-      <Button type="submit" className="w-full mt-2 bg-dark-pink-primary font-semibold rounded-md">
+      <Button isLoading={loading} type="submit" className="w-full mt-2 bg-dark-pink-primary font-semibold rounded-md">
         Save
       </Button>
     </Form>
@@ -70,13 +94,31 @@ export const AccountSettingForm = () => {
 }
 
 export const AccountPreferencesForm = () => {
-
+  const { user } = useAuth()
+  const [profile, setProfile] = useState<IUser | null>(null)
+  useEffect(() => {
+    const data = async () => {
+      if (user && user.user_id) {
+        try {
+          const res = await axiosinstance.get(`/users/info?user_id=${user.user_id}`)
+          if (res.data) {
+            setProfile({
+              ...res.data
+            })
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+    data()
+  }, [])
   return (
     <>
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[0.95rem] font-semibold">Shiro Stack Newsletter</div>
-          <div className="text-sm text-slate-400 font-semibold">toshiroitdv@gmail.com</div>
+          <div className="text-[0.95rem] font-semibold">{profile?.name}</div>
+          <div className="text-sm text-slate-400 font-semibold">{profile?.email}</div>
         </div>
         <div className="cursor-pointer font-semibold text-sm text-primary">
           <Switch size="sm" color="secondary" />
