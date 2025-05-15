@@ -27,9 +27,8 @@ export default function SideBar() {
             <div key={idx}>
               <Link
                 href={item.href || "#"}
-                className={`flex justify-between items-center px-3 py-2 rounded-lg hover:bg-gray-800 ${
-                  patname === item.href && "bg-gray-800"
-                }`}
+                className={`flex justify-between items-center px-3 py-2 rounded-md hover:bg-gray-800 ${patname === item.href && "bg-gray-800"
+                  }`}
               >
                 <div className="flex items-center">
                   <Icon className="w-5 h-5 mr-3" />

@@ -12,6 +12,7 @@ const fetcherPostByTitleAndId = (url: string) =>
 
 const fetcherPostDataHome = (url: string) => axiosinstance.get<IFetchPostDataHome>(url).then(res => res.data)
 
+const fetcherPostDataAdmin = (url: string) => axiosinstance.get<IPostData>(url).then(res => res.data)
 export const fetcherPostByID = (url: string) =>
   axiosinstance.get<IPostItem>(url).then(res => res.data);
 export function usePosts(vkl: IUsePosts) {
@@ -41,6 +42,19 @@ export function usePostDataHome(vkl: IGetPostData, options?: { fallbackData?: IF
   const query = buildInternalPostHomeApiUrl(vkl)
   const { data, error, isLoading, mutate } = useSWR<IFetchPostDataHome>(query, fetcherPostDataHome, {
     fallbackData: options?.fallbackData,
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+    revalidateOnMount: false,    // ✂️ TẮT luôn re-fetch khi mount
+    dedupingInterval: 600_000,
+
+  })
+  return { data_post: data, error, isLoading, mutate }
+}
+
+export function usePostDataAdmin(vkl: { page: number; limit: number }, options?: { fallbackData?: IPostData | null }) {
+  const { data, error, isLoading, mutate } = useSWR<IPostData | null>(`/posts/get?page=${vkl.page}&limit=${vkl.limit}`, fetcherPostDataAdmin, {
+    fallbackData: vkl.page === 1 ? options?.fallbackData : undefined,
     revalidateOnFocus: false,
     revalidateIfStale: false,
     revalidateOnReconnect: false,

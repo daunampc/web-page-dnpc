@@ -8,7 +8,7 @@ interface Props {
 
 export default function RootAdminLayout({ children }: Props) {
   return (
-    <>
+    <div className="font-roboto">
       <>
         <LayoutAdmin />
       </>
@@ -22,6 +22,6 @@ export default function RootAdminLayout({ children }: Props) {
           {children}
         </div>
       </main>
-    </>
+    </div>
   )
 }

@@ -29,7 +29,7 @@ export interface IPostItem {
   slug: string;
   description: string;
   content: JSON;
-  published: string;
+  published: boolean;
   user_id: string;
   createdAt: Date,
   updatedAt: Date,

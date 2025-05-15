@@ -37,7 +37,8 @@ const config: Config = {
         'dark-gray-1': '#212121',
         'dark-pink-primary': '#5E129B',
         'success': '#04AA2A',
-        'danger': '#F04438'
+        'danger': '#F04438',
+        'danger-2': '#DF1D48'
       },
       fontFamily: {
         'potta-none': ['var(--font-potta-one)'],

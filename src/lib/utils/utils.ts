@@ -47,3 +47,19 @@ export function buildInternalPostHomeApiUrl(params: IGetPostData): string {
   const queryString = queryParts.join('&');
   return `/posts/get/home-page?${queryString}`;
 }
+
+export function isoToPostgresFormat(isoString: Date): string {
+  const date = new Date(isoString);
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
+  const year = date.getUTCFullYear();
+  const month = pad(date.getUTCMonth() + 1);
+  const day = pad(date.getUTCDate());
+  const hour = pad(date.getUTCHours());
+  const minute = pad(date.getUTCMinutes());
+  const second = pad(date.getUTCSeconds());
+
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
+
